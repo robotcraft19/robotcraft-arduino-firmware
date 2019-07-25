@@ -1,7 +1,7 @@
 #ifndef HEADER_H
 #define HEADER_H
 
-// Define pins
+// PINS
 #define LEFT_ENCODER_A 18
 #define LEFT_ENCODER_B 19
 
@@ -18,14 +18,21 @@
 #define IR_FRONT A3
 #define IR_RIGHT A4
 
-// Define other constants
+// OTHER CONSTANTS
 #define UPDATE_FREQUENCY 10.0
 #define IR_SAMPLE_SIZE 25
 #define ENCODER_RES 8200.0
 #define WHEEL_TO_WHEEL 9.9 //in centimer
 #define WHEEL_RADIUS 1.5
 
-// Structures
+#define KP 10.0
+#define KI 0.1
+#define KD 0
+
+#define FORWARD 0
+#define BACKWARD 1
+
+// STRUCTURES KINEMATICS
 typedef struct
 {
   float x;
@@ -48,18 +55,48 @@ typedef struct
 } Speed;
 
 
-// Global Variables
+// STRUCTURES PID
+typedef struct {
+    float AngVelLeft = 0;
+    float AngVelRight = 0;
+} ProportionalError;
+
+typedef struct {
+    float Left = 0;
+    float Right = 0;
+} DerivativeError;
+
+typedef struct {
+    float Left = 0;
+    float Right = 0;
+} IntegralError;
+
+
+
+// GENERAL GLOBAL VARIABLES
 Position robotPosition = {0.0, 0.0, 0.0};
+unsigned long timestamp;
+
+
+// KINEMATICS GLOBAL VARIABLES
+Speed desiredSpeed;
+Speed realSpeed;
 
 long oldEncoderRight = 0;
 long oldEncoderLeft = 0;
 EncoderDifference encDiff = {0.0, 0.0};
-unsigned long timestamp;
 
-Speed desiredSpeed;
-Speed realSpeed;
 
-// Encoder definition
+// PID GLOBAL VARIABLES
+ProportionalError PropErr;
+DerivativeError DerivErr;
+IntegralError IntegErr;
+
+float gainLeft;
+float gainRight;
+
+
+// ENCODER DEFINITIONS
 Encoder myEncLeft(LEFT_ENCODER_A, LEFT_ENCODER_B);
 Encoder myEncRight(RIGHT_ENCODER_A, RIGHT_ENCODER_B);
 

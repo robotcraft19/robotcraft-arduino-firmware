@@ -1,5 +1,10 @@
 #include "Header.h"
 
+void encUpdate(long *oldEncoderLeft, long *oldEncoderRight) {
+   *oldEncoderRight = encoderRight();
+   *oldEncoderLeft = encoderLeft();
+}
+
 long encoderRight()
 {
   long encoderRight = myEncRight.read();

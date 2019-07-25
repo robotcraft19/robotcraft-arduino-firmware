@@ -39,13 +39,16 @@ void poseUpdate()
   realSpeed.lin_vel = 2 * M_PI * WHEEL_RADIUS / ENCODER_RES * (encDiff.right + encDiff.left) / 2.0 / timeDiff;
   realSpeed.ang_vel = 2 * M_PI * WHEEL_RADIUS / ENCODER_RES * (encDiff.right - encDiff.left) / WHEEL_TO_WHEEL / timeDiff;
 
+  /* update angular wheel speeds */
+  cmd_vel2wheels(&realSpeed);
+
   /* calculate new position and angular orientation of robot */
   Position newPosition;
   newPosition.theta = atan2(sin(oldPosition.theta + realSpeed.ang_vel * timeDiff), cos(oldPosition.theta + realSpeed.ang_vel * timeDiff));
   newPosition.x = oldPosition.x + realSpeed.lin_vel * timeDiff * cos(newPosition.theta);
   newPosition.y = oldPosition.y + realSpeed.lin_vel * timeDiff * sin(newPosition.theta);
 
-  // Update RobotPosition
+  /* Update RobotPosition */
   robotPosition.x = newPosition.x;
   robotPosition.y = newPosition.y;
   robotPosition.theta = newPosition.theta;
@@ -54,9 +57,10 @@ void poseUpdate()
 
 void printRobotPosition()
 {
-  Serial.println(robotPosition.x);
-  Serial.println(robotPosition.y);
-  Serial.println(robotPosition.theta);
+  Serial.print("x: "); Serial.println(robotPosition.x);
+  Serial.print("y: "); Serial.println(robotPosition.y);
+  Serial.print("theta: "); Serial.println(robotPosition.theta);
+  Serial.println();
 }
 
 
