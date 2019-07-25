@@ -21,12 +21,12 @@
 // OTHER CONSTANTS
 #define UPDATE_FREQUENCY 10.0
 #define IR_SAMPLE_SIZE 25
-#define ENCODER_RES 8200.0
-#define WHEEL_TO_WHEEL 9.9 //in centimer
-#define WHEEL_RADIUS 1.5
+#define ENCODER_RES 8344.0 // 298 x 28
+#define WHEEL_TO_WHEEL 0.097 //in centimer
+#define WHEEL_RADIUS 0.016
 
-#define KP 10.0
-#define KI 0.1
+#define KP 10
+#define KI 0.3
 #define KD 0
 
 #define FORWARD 0
@@ -77,6 +77,8 @@ typedef struct {
 Position robotPosition = {0.0, 0.0, 0.0};
 unsigned long timestamp;
 
+// SENSOR GLOBAL VARIABLES
+int distanceIR_L, distanceIR_F, distanceIR_R;
 
 // KINEMATICS GLOBAL VARIABLES
 Speed desiredSpeed;

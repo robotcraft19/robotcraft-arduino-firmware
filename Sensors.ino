@@ -51,6 +51,12 @@ int sensR()
   return distance;
 }
 
+void readSensorsIR(int *irLeft, int *irFront, int *irRight) {
+  *irLeft = sensL();
+  *irFront = sensF();
+  *irRight = sensR();
+}
+
 void printSensorsIR()
 {
   int rangeLeft = sensL();

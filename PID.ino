@@ -38,7 +38,7 @@ void pidControl(Speed realSpeed, Speed desiredSpeed) {
     gainRight = abs(gainRight);
 
     if (gainLeft >= 255) gainLeft = 255;
-    if (gainRight >= 255) gainRight = 2555;
+    if (gainRight >= 255) gainRight = 255;
     
 
     //analogWrite to PWM pin => gain !

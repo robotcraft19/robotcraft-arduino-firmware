@@ -6,25 +6,32 @@ void update() // update service routine
   encUpdate(&oldEncoderLeft, &oldEncoderRight);
   poseUpdate();
   pidControl(realSpeed, desiredSpeed);
+  readSensorsIR(&distanceIR_L, &distanceIR_F, &distanceIR_R);
 
-  Serial.println(realSpeed.ang_vel);
+  /*
+  Serial.println(realSpeed.lin_vel);
 
   float x = robotPosition.x;
   float theta = radToDeg(robotPosition.theta);
-  /*
-  if (theta >= 90)
+  
+  if (x >= 0.2)
   {
     analogWrite(RIGHT_MOTOR_PWM, 0);
     analogWrite(LEFT_MOTOR_PWM, 0);
+    desiredSpeed.lin_vel = 0.0;
+    desiredSpeed.ang_vel = 0.0;
   }
-  */
   
-  //printRobotPosition();
-  //printSensorsIR();
+  printRobotPosition();
+  printSensorsIR();
+  */
 }
 
 void setup()
 {
+  // Setup serial
+  Serial.begin(9600);
+  
   // Setup pins
   pinMode(LEFT_ENCODER_A, INPUT);
   pinMode(LEFT_ENCODER_B, INPUT);
@@ -32,14 +39,11 @@ void setup()
   pinMode(RIGHT_ENCODER_B, INPUT);
 
   // Initialize oldEncoder values
-  oldEncoderRight = myEncRight.read();
-  oldEncoderLeft = myEncLeft.read();
-
-  Serial.begin(9600);
+  encUpdate(&oldEncoderLeft, &oldEncoderRight);
 
   //speed = cmd_vel(); // get desired speed
-  desiredSpeed.lin_vel = 0.0; // cm/s
-  desiredSpeed.ang_vel = 0.0;
+  desiredSpeed.lin_vel = 0.05; // m/s
+  desiredSpeed.ang_vel = 0.0; // rad/s
 
   // Convert the linear and angular velocities to the wheels' angular velocity
   cmd_vel2wheels(&desiredSpeed);
