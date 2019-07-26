@@ -1,22 +1,12 @@
 #include "Header.h"
 
 // Receive desired linear and angular velocities as input
-Speed cmd_vel()
+Speed cmd_vel(float lin_vel, float ang_vel)
 {
   Speed robot;
-
-  Serial.println("Input linear robot velocity");
-  while (!Serial.available())
-  {
-  }
-  robot.lin_vel = Serial.parseFloat();
-
-  Serial.println("Input angular robot velocity");
-  Serial.flush();
-  while (!Serial.available())
-  {
-  }
-  robot.ang_vel = Serial.parseFloat();
+  robot.lin_vel = lin_vel;
+  robot.ang_vel = ang_vel;
+  cmd_vel2wheels(&robot); // Convert the linear and angular velocities to the wheels' angular velocity
 
   return robot;
 }

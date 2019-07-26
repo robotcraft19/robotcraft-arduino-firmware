@@ -42,11 +42,7 @@ void setup()
   encUpdate(&oldEncoderLeft, &oldEncoderRight);
 
   //speed = cmd_vel(); // get desired speed
-  desiredSpeed.lin_vel = 0.05; // m/s
-  desiredSpeed.ang_vel = 0.0; // rad/s
-
-  // Convert the linear and angular velocities to the wheels' angular velocity
-  cmd_vel2wheels(&desiredSpeed);
+  desiredSpeed = cmd_vel(0.05, 0.0); // pass desired linear velocity (m/s) and angular velocitiy (rad/s)
 
   // Start motors
   digitalWrite(RIGHT_MOTOR_DIR, FORWARD);
