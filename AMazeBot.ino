@@ -41,7 +41,6 @@ void setup()
   // Initialize oldEncoder values
   encUpdate(&oldEncoderLeft, &oldEncoderRight);
 
-  //speed = cmd_vel(); // get desired speed
   desiredSpeed = cmd_vel(0.05, 0.0); // pass desired linear velocity (m/s) and angular velocitiy (rad/s)
 
   // Start motors
