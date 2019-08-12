@@ -1,4 +1,3 @@
-#include <Encoder.h>
 #include "Header.h"
 
 void update() // update service routine
@@ -29,8 +28,16 @@ void update() // update service routine
 
 void setup()
 {
-  // Setup serial
-  Serial.begin(9600);
+
+  // Setup ROS
+  nh.initNode();
+  nh.advertise(left_dist_pub);
+  nh.advertise(front_dist_pub);
+  nh.advertise(right_dist_pub);
+  nh.advertise(pose_pub);
+
+  nh.subscribe(cmd_vel_sub);
+ 
   
   // Setup pins
   pinMode(LEFT_ENCODER_A, INPUT);
@@ -41,7 +48,7 @@ void setup()
   // Initialize oldEncoder values
   encUpdate(&oldEncoderLeft, &oldEncoderRight);
 
-  desiredSpeed = cmd_vel(0.05, 0.0); // pass desired linear velocity (m/s) and angular velocitiy (rad/s)
+  desiredSpeed = cmd_vel(0.00, 0.0); // pass desired linear velocity (m/s) and angular velocitiy (rad/s)
 
   // Start motors
   digitalWrite(RIGHT_MOTOR_DIR, FORWARD);
@@ -61,6 +68,9 @@ void loop()
   if ((millis() - timestamp) >= 1000 / UPDATE_FREQUENCY)
   {
     update();
+    publishSensorData();
+    publishPose();
+    nh.spinOnce(); // Receive messages
     timestamp = millis();
 
 
