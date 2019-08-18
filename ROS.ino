@@ -4,6 +4,7 @@ void setupROS()
 {
   // Initialize NodeHandle
   nh.initNode();
+  nh.getHardware()->setBaud(115200);
 
   // Setup publishers
   nh.advertise(left_dist_pub);
