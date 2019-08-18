@@ -4,7 +4,7 @@ int getDistance(int ir_pin)
 {
   /*
    * int ir_pin: Analog pin number of IR sensor
-   * Returns distance in mm (and cuts off at 100mm and 800mm because range of sensor is 10-80cm)
+   * Returns distance in m (and cuts off at 0.1m and 0.8m because range of sensor is 10-80cm)
    */
 
   int ir_val[IR_SAMPLE_SIZE];
@@ -31,7 +31,7 @@ int getDistance(int ir_pin)
     distance_cm = 80.0;
   else if (distance_cm < 10.0)
     distance_cm = 10.0;
-  return (int)(distance_cm * 10.0); // return in mm
+  return (float)(distance_cm / 100.0); // return in m
 }
 
 // Get IR Sensor values

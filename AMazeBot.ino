@@ -47,8 +47,5 @@ void loop()
     publishPose();
     nh.spinOnce(); // Receive messages
     timestamp = millis();
-
-
-    
   }
 }
