@@ -43,8 +43,7 @@ void loop()
   if ((millis() - timestamp) >= 1000 / UPDATE_FREQUENCY)
   {
     update();
-    publishSensorData();
-    publishPose();
+    publish(); // Publish all ROS messages
     nh.spinOnce(); // Receive messages
     timestamp = millis();
   }

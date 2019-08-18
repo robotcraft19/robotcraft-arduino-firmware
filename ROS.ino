@@ -41,6 +41,12 @@ void publishSensorData() {
   
 }
 
+void publish()
+{
+    publishPose();
+    publishSensorData();
+}
+
 void publishPose() {
   // Publish robot pose
   pose_msg.x = robotPosition.x;
