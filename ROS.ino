@@ -1,7 +1,12 @@
 #include "Header.h"
 
 void setupROS()
-{
+{ 
+  // Set LED color to yellow to indicate connection establishment  
+  leds[0] = CRGB(100, 100, 0);
+  leds[1] = CRGB(100, 100, 0);
+  FastLED.show();
+  
   // Initialize NodeHandle
   nh.initNode();
   nh.getHardware()->setBaud(115200);
@@ -17,11 +22,16 @@ void setupROS()
   nh.subscribe(rgb_leds_sub);
   nh.subscribe(set_pose_sub);
 
-  //wait until you are actually connected
+  // Wait until you are actually connected
   while (!nh.connected())
   {
     nh.spinOnce();
   }
+
+  // Set LED color to green to indicate succesful connection with ROS
+  leds[0] = CRGB(50, 100, 0);
+  leds[1] = CRGB(50, 100, 0);
+  FastLED.show();
 }
 
 void publishSensorData() {
@@ -70,4 +80,7 @@ void setPose(const geometry_msgs::Pose2D& msg) {
 
 void setLED(const std_msgs::UInt8MultiArray& msg) {
   // Set RGB LEDs
+  leds[0] = CRGB(msg.data[0], msg.data[1], msg.data[2]);
+  leds[1] = CRGB(msg.data[3], msg.data[4], msg.data[5]);
+  FastLED.show();
 }

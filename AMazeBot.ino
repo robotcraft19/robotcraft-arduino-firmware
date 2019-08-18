@@ -19,6 +19,7 @@ void setup()
   pinMode(LEFT_ENCODER_B, INPUT);
   pinMode(RIGHT_ENCODER_A, INPUT);
   pinMode(RIGHT_ENCODER_B, INPUT);
+  FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
 
   // Initialize oldEncoder values
   encUpdate(&oldEncoderLeft, &oldEncoderRight);
@@ -42,7 +43,7 @@ void loop()
   // Polling version of the code
   if ((millis() - timestamp) >= 1000 / UPDATE_FREQUENCY)
   {
-    update();
+    update();  // update robot
     publish(); // Publish all ROS messages
     nh.spinOnce(); // Receive messages
     timestamp = millis();

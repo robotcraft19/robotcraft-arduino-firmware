@@ -3,6 +3,7 @@
 
 // IMPORTS
 #include <Encoder.h>
+#include <FastLED.h>
 #include <ros.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/UInt8MultiArray.h>
@@ -25,6 +26,9 @@
 #define IR_LEFT A2
 #define IR_FRONT A3
 #define IR_RIGHT A4
+
+#define LED_PIN 7
+#define NUM_LEDS 2
 
 // OTHER CONSTANTS
 #define UPDATE_FREQUENCY 10.0
@@ -87,6 +91,9 @@ unsigned long timestamp;
 
 // SENSOR GLOBAL VARIABLES
 int distanceIR_L, distanceIR_F, distanceIR_R;
+
+// SMART RGB LED GLOBAL VARIABLES
+CRGB leds[NUM_LEDS];
 
 // KINEMATICS GLOBAL VARIABLES
 Speed desiredSpeed;
