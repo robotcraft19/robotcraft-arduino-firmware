@@ -1,5 +1,22 @@
 #include "Header.h"
 
+void setupROS()
+{
+  // Initialize NodeHandle
+  nh.initNode();
+
+  // Setup publishers
+  nh.advertise(left_dist_pub);
+  nh.advertise(front_dist_pub);
+  nh.advertise(right_dist_pub);
+  nh.advertise(pose_pub);
+
+  // Setup subscribers
+  nh.subscribe(cmd_vel_sub);
+  nh.subscribe(rgb_leds_sub);
+  nh.subscribe(set_pose_sub);
+}
+
 void publishSensorData() {
   
   // Set message data and publish message
@@ -32,4 +49,12 @@ void readCmdVel(const geometry_msgs::Twist& msg) {
   float angular = msg.angular.z;
   desiredSpeed = cmd_vel(linear, angular); // pass desired linear velocity (m/s) and angular velocitiy (rad/s)
   
+}
+
+void setPose(const geometry_msgs::Pose2D& msg) {
+  // Receive pose and move robot
+}
+
+void setLED(const std_msgs::UInt8MultiArray& msg) {
+  // Set RGB LEDs
 }

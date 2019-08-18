@@ -6,38 +6,13 @@ void update() // update service routine
   poseUpdate();
   pidControl(realSpeed, desiredSpeed);
   readSensorsIR(&distanceIR_L, &distanceIR_F, &distanceIR_R);
-
-  /*
-  Serial.println(realSpeed.lin_vel);
-
-  float x = robotPosition.x;
-  float theta = radToDeg(robotPosition.theta);
-  
-  if (x >= 0.2)
-  {
-    analogWrite(RIGHT_MOTOR_PWM, 0);
-    analogWrite(LEFT_MOTOR_PWM, 0);
-    desiredSpeed.lin_vel = 0.0;
-    desiredSpeed.ang_vel = 0.0;
-  }
-  
-  printRobotPosition();
-  printSensorsIR();
-  */
 }
 
 void setup()
 {
 
   // Setup ROS
-  nh.initNode();
-  nh.advertise(left_dist_pub);
-  nh.advertise(front_dist_pub);
-  nh.advertise(right_dist_pub);
-  nh.advertise(pose_pub);
-
-  nh.subscribe(cmd_vel_sub);
- 
+  setupROS();
   
   // Setup pins
   pinMode(LEFT_ENCODER_A, INPUT);
