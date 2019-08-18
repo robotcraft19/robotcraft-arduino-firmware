@@ -15,6 +15,12 @@ void setupROS()
   nh.subscribe(cmd_vel_sub);
   nh.subscribe(rgb_leds_sub);
   nh.subscribe(set_pose_sub);
+
+  //wait until you are actually connected
+  while (!nh.connected())
+  {
+    nh.spinOnce();
+  }
 }
 
 void publishSensorData() {

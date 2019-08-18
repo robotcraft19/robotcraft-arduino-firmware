@@ -124,7 +124,6 @@ ros::Publisher left_dist_pub("left_distance", &dist_msg);
 ros::Publisher front_dist_pub("front_distance", &dist_msg);
 ros::Publisher right_dist_pub("right_distance", &dist_msg);
 ros::Publisher pose_pub("pose", &pose_msg);
-
 // Create Subscribers
 void readCmdVel(const geometry_msgs::Twist& msg);
 ros::Subscriber<geometry_msgs::Twist> cmd_vel_sub("cmd_vel", readCmdVel);

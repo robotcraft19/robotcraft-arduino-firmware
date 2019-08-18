@@ -47,10 +47,16 @@ void poseUpdate()
 
 void printRobotPosition()
 {
-  Serial.print("x: "); Serial.println(robotPosition.x);
-  Serial.print("y: "); Serial.println(robotPosition.y);
-  Serial.print("theta: "); Serial.println(robotPosition.theta);
-  Serial.println();
+  char xstr[10];
+  char ystr[10];
+  char thetastr[10];
+  char output[100];
+  dtostrf(robotPosition.x, 6, 2, xstr);
+  dtostrf(robotPosition.y, 6, 2, ystr);
+  dtostrf(robotPosition.theta, 6, 2, thetastr);
+  sprintf(output,"x: %s | y: %s | theta: %s", xstr, ystr, thetastr);
+  nh.logdebug(output);
+  
 }
 
 

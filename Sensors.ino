@@ -57,20 +57,6 @@ void readSensorsIR(int *irLeft, int *irFront, int *irRight) {
   *irRight = sensR();
 }
 
-void printSensorsIR()
-{
-  int rangeLeft = sensL();
-  int rangeFront = sensF();
-  int rangeRight = sensR();
-  Serial.print("Sensor Left: ");
-  Serial.println(rangeLeft);
-  Serial.print("Sensor Front: ");
-  Serial.println(rangeFront);
-  Serial.print("Sensor Right: ");
-  Serial.println(rangeRight);
-  Serial.println("\n");
-}
-
 // Helper function to sort array
 void sortArray(int a[], int size)
 {
