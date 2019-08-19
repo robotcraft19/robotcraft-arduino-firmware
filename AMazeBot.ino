@@ -9,20 +9,21 @@ void update() // update service routine
 }
 
 void setup()
-{
-
-  // Setup ROS
-  setupROS();
-  
+{ 
   // Setup pins
   pinMode(LEFT_ENCODER_A, INPUT);
   pinMode(LEFT_ENCODER_B, INPUT);
   pinMode(RIGHT_ENCODER_A, INPUT);
   pinMode(RIGHT_ENCODER_B, INPUT);
-  FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
 
   // Initialize oldEncoder values
   encUpdate(&oldEncoderLeft, &oldEncoderRight);
+  FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.setBrightness(25);
+
+  // Setup ROS
+  setupROS();
+ 
 
   desiredSpeed = cmd_vel(0.00, 0.0); // pass desired linear velocity (m/s) and angular velocitiy (rad/s)
 

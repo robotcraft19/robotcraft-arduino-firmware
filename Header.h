@@ -27,7 +27,7 @@
 #define IR_FRONT A3
 #define IR_RIGHT A4
 
-#define LED_PIN 7
+#define LED_PIN 10
 #define NUM_LEDS 2
 
 // OTHER CONSTANTS
