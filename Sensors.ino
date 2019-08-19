@@ -1,6 +1,6 @@
 #include "Header.h"
 
-int getDistance(int ir_pin)
+float getDistance(int ir_pin)
 {
   /*
    * int ir_pin: Analog pin number of IR sensor
@@ -35,23 +35,23 @@ int getDistance(int ir_pin)
 }
 
 // Get IR Sensor values
-int sensL()
+float sensL()
 {
-  int distance = getDistance(IR_LEFT);
+  float distance = getDistance(IR_LEFT);
   return distance;
 }
-int sensF()
+float sensF()
 {
-  int distance = getDistance(IR_FRONT);
+  float distance = getDistance(IR_FRONT);
   return distance;
 }
-int sensR()
+float sensR()
 {
-  int distance = getDistance(IR_RIGHT);
+  float distance = getDistance(IR_RIGHT);
   return distance;
 }
 
-void readSensorsIR(int *irLeft, int *irFront, int *irRight) {
+void readSensorsIR(float *irLeft, float *irFront, float *irRight) {
   *irLeft = sensL();
   *irFront = sensF();
   *irRight = sensR();

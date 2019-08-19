@@ -3,13 +3,13 @@
 void setupROS()
 { 
   // Set LED color to yellow to indicate connection establishment  
-  leds[0] = CRGB(100, 100, 0);
-  leds[1] = CRGB(100, 100, 0);
+  leds[0] = CRGB(255, 255, 0);
+  leds[1] = CRGB(255, 255, 0);
   FastLED.show();
   
   // Initialize NodeHandle
+  nh.getHardware()->setBaud(115200); // needs to be first line
   nh.initNode();
-  nh.getHardware()->setBaud(115200);
 
   // Setup publishers
   nh.advertise(left_dist_pub);
@@ -29,15 +29,15 @@ void setupROS()
   }
 
   // Set LED color to green to indicate succesful connection with ROS
-  leds[0] = CRGB(50, 100, 0);
-  leds[1] = CRGB(50, 100, 0);
+  leds[0] = CRGB(0, 255, 0);
+  leds[1] = CRGB(0, 255, 0);
   FastLED.show();
 }
 
 void publishSensorData() {
   
   // Set message data and publish message
-  int left_ir, front_ir, right_ir;
+  float left_ir, front_ir, right_ir;
   readSensorsIR(&left_ir, &front_ir, &right_ir);
   
   dist_msg.data = left_ir;
@@ -51,12 +51,6 @@ void publishSensorData() {
   
 }
 
-void publish()
-{
-    publishPose();
-    publishSensorData();
-}
-
 void publishPose() {
   // Publish robot pose
   pose_msg.x = robotPosition.x;
@@ -65,13 +59,18 @@ void publishPose() {
   pose_pub.publish(&pose_msg);
 }
 
+void publish()
+{
+    publishPose();
+    publishSensorData();
+}
 
 void readCmdVel(const geometry_msgs::Twist& msg) {
   // Receive cmd_vel message and process
   float linear = msg.linear.x;
   float angular = msg.angular.z;
   desiredSpeed = cmd_vel(linear, angular); // pass desired linear velocity (m/s) and angular velocitiy (rad/s)
-  
+  nh.loginfo("/cmd_vel callback triggered");
 }
 
 void setPose(const geometry_msgs::Pose2D& msg) {
@@ -86,4 +85,27 @@ void setLED(const std_msgs::UInt8MultiArray& msg) {
   leds[0] = CRGB(msg.data[0], msg.data[1], msg.data[2]);
   leds[1] = CRGB(msg.data[3], msg.data[4], msg.data[5]);
   FastLED.show();
+}
+
+bool rosOK()
+{
+  static bool last_connected;
+  if (!nh.connected()) {
+    // Change LEDs to red if disconnected
+    leds[0] = CRGB(255, 0, 0);
+    leds[1] = CRGB(255, 0, 0);
+    FastLED.show();
+    last_connected = false;
+    return false;
+  }
+
+  if (last_connected == false)
+  {
+    // Change LEDs to green if reconnected (only first time)
+    leds[0] = CRGB(0, 255, 0);
+    leds[1] = CRGB(0, 255, 0);
+    FastLED.show();
+    last_connected = true;
+  }
+  return true;
 }

@@ -43,10 +43,15 @@ void loop()
 
   // Polling version of the code
   if ((millis() - timestamp) >= 1000 / UPDATE_FREQUENCY)
-  {
-    update();  // update robot
-    publish(); // Publish all ROS messages
-    nh.spinOnce(); // Receive messages
+  { 
+    if(rosOK() == true) {
+        update();  // update robot
+        publish(); // Publish all ROS messages
+        nh.spinOnce(); // Receive messages
+    } else {
+        desiredSpeed = cmd_vel(0.00, 0.0); // Stop robot on disconnection
+    }
+    
     timestamp = millis();
   }
 }

@@ -90,7 +90,7 @@ Position robotPosition = {0.0, 0.0, 0.0};
 unsigned long timestamp;
 
 // SENSOR GLOBAL VARIABLES
-int distanceIR_L, distanceIR_F, distanceIR_R;
+float distanceIR_L, distanceIR_F, distanceIR_R;
 
 // SMART RGB LED GLOBAL VARIABLES
 CRGB leds[NUM_LEDS];
