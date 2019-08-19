@@ -75,7 +75,10 @@ void readCmdVel(const geometry_msgs::Twist& msg) {
 }
 
 void setPose(const geometry_msgs::Pose2D& msg) {
-  // Receive pose and move robot
+  // Receive pose and set robot position
+  robotPosition.x = msg.x;
+  robotPosition.y = msg.y;
+  robotPosition.theta = msg.theta;
 }
 
 void setLED(const std_msgs::UInt8MultiArray& msg) {
