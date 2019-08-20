@@ -124,13 +124,15 @@ ros::NodeHandle nh;
 // Define message types
 std_msgs::Float32 dist_msg;
 geometry_msgs::Pose2D pose_msg;
-geometry_msgs::Twist twist_msg;
+geometry_msgs::Twist stop_msg; // initialized to zero
 
 // Create Publishers
 ros::Publisher left_dist_pub("left_distance", &dist_msg);
 ros::Publisher front_dist_pub("front_distance", &dist_msg);
 ros::Publisher right_dist_pub("right_distance", &dist_msg);
 ros::Publisher pose_pub("pose", &pose_msg);
+ros::Publisher cmd_vel_pub("cmd_vel", &stop_msg); // used as option to stop robot
+
 // Create Subscribers
 void readCmdVel(const geometry_msgs::Twist& msg);
 ros::Subscriber<geometry_msgs::Twist> cmd_vel_sub("cmd_vel", readCmdVel);

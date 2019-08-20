@@ -47,11 +47,12 @@ void loop()
         update();  // update robot
         publish(); // Publish all ROS messages
         nh.spinOnce(); // Receive messages
-    } else {
-        desiredSpeed = cmd_vel(0.00, 0.0); // Stop robot on disconnection
+    } 
+    else {
+        cmd_vel_pub.publish(&stop_msg); // Stop robot on disconnection
     }
     if (cmd_vel_timeout >= 5)
-        desiredSpeed = cmd_vel(0.00, 0.0); // Stop robot after timeout when not receiving any new messages
+        cmd_vel_pub.publish(&stop_msg); // Stop robot after timeout when not receiving any new messages
 
     cmd_vel_timeout++;
     timestamp = millis();

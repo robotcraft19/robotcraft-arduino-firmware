@@ -16,6 +16,7 @@ void setupROS()
   nh.advertise(front_dist_pub);
   nh.advertise(right_dist_pub);
   nh.advertise(pose_pub);
+  nh.advertise(cmd_vel_pub);
 
   // Setup subscribers
   nh.subscribe(cmd_vel_sub);
