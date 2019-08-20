@@ -69,8 +69,17 @@ void readCmdVel(const geometry_msgs::Twist& msg) {
   // Receive cmd_vel message and process
   float linear = msg.linear.x;
   float angular = msg.angular.z;
+  
   desiredSpeed = cmd_vel(linear, angular); // pass desired linear velocity (m/s) and angular velocitiy (rad/s)
-  nh.loginfo("/cmd_vel callback triggered");
+
+  // Fix out of range speed
+  while (desiredSpeed.wheel_left >= 5.0 || desiredSpeed.wheel_right >= 5.0)
+  {
+    linear *= 0.99;
+    angular *= 0.99;
+    desiredSpeed = cmd_vel(linear, angular); // pass desired linear velocity (m/s) and angular velocitiy (rad/s)
+  }
+  cmd_vel_timeout = 0; // reset timeout counter
 }
 
 void setPose(const geometry_msgs::Pose2D& msg) {

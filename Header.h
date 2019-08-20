@@ -34,7 +34,7 @@
 #define UPDATE_FREQUENCY 10.0
 #define IR_SAMPLE_SIZE 25
 #define ENCODER_RES 8344.0 // 298 x 28
-#define WHEEL_TO_WHEEL 0.097 //in centimer
+#define WHEEL_TO_WHEEL 0.097 //in meters
 #define WHEEL_RADIUS 0.016
 
 #define KP 10
@@ -140,5 +140,7 @@ ros::Subscriber<geometry_msgs::Pose2D> set_pose_sub("set_pose", setPose);
 
 void setLED(const std_msgs::UInt8MultiArray& msg);
 ros::Subscriber<std_msgs::UInt8MultiArray> rgb_leds_sub("rgb_leds", setLED);
+
+int cmd_vel_timeout;
 
 #endif

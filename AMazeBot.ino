@@ -40,7 +40,6 @@ void setup()
 
 void loop()
 {
-
   // Polling version of the code
   if ((millis() - timestamp) >= 1000 / UPDATE_FREQUENCY)
   { 
@@ -51,7 +50,10 @@ void loop()
     } else {
         desiredSpeed = cmd_vel(0.00, 0.0); // Stop robot on disconnection
     }
-    
+    if (cmd_vel_timeout >= 5)
+        desiredSpeed = cmd_vel(0.00, 0.0); // Stop robot after timeout when not receiving any new messages
+
+    cmd_vel_timeout++;
     timestamp = millis();
   }
 }
