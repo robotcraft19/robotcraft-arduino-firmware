@@ -50,16 +50,21 @@ void loop()
   // Polling version of the code
   if ((millis() - timestamp) >= 1000 / UPDATE_FREQUENCY)
   { 
+    update();  // update robot
+    
     if(rosOK() == true) {
-        update();  // update robot
         publish(); // Publish all ROS messages
         nh.spinOnce(); // Receive messages
     } 
     else {
-        cmd_vel_pub.publish(&stop_msg); // Stop robot on disconnection
+        desiredSpeed = cmd_vel(0.00, 0.0); // Stop locally because message not getting through anymore
     }
+    
     if (cmd_vel_timeout >= 5)
+    {
+        desiredSpeed = cmd_vel(0.00, 0.0);
         cmd_vel_pub.publish(&stop_msg); // Stop robot after timeout when not receiving any new messages
+    }
 
     cmd_vel_timeout++;
     timestamp = millis();

@@ -8,7 +8,7 @@ void setupROS()
   FastLED.show();
   
   // Initialize NodeHandle
-  nh.getHardware()->setBaud(115200); // needs to be first line
+  nh.getHardware()->setBaud(57600); // needs to be first line
   nh.initNode();
 
   // Setup publishers
