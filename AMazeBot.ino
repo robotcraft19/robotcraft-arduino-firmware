@@ -15,6 +15,13 @@ void setup()
   pinMode(LEFT_ENCODER_B, INPUT);
   pinMode(RIGHT_ENCODER_A, INPUT);
   pinMode(RIGHT_ENCODER_B, INPUT);
+  
+  // Motors
+  pinMode(RIGHT_MOTOR_DIR, OUTPUT);
+  pinMode(RIGHT_MOTOR_PWM, OUTPUT);
+  pinMode(LEFT_MOTOR_DIR, OUTPUT);
+  pinMode(LEFT_MOTOR_PWM, OUTPUT);
+ 
 
   // Initialize oldEncoder values
   encUpdate(&oldEncoderLeft, &oldEncoderRight);
