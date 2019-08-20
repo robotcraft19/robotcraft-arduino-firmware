@@ -12,8 +12,8 @@ void pidControl(Speed realSpeed, Speed desiredSpeed) {
     float newIntegLeft = IntegErr.Left + newPropLeft;
     float newIntegRight = IntegErr.Right + newPropRight;
 
-    gainLeft = KP*newPropLeft + KI*newIntegLeft*(1000/UPDATE_FREQUENCY) + KD*newDerivLeft/(1000/UPDATE_FREQUENCY);
-    gainRight = KP*newPropRight + KI*newIntegRight*(1000/UPDATE_FREQUENCY) + KD*newDerivRight/(1000/UPDATE_FREQUENCY);
+    gainLeft = KP*newPropLeft + KI*newIntegLeft*(1/UPDATE_FREQUENCY) + KD*newDerivLeft/(1/UPDATE_FREQUENCY);
+    gainRight = KP*newPropRight + KI*newIntegRight*(1/UPDATE_FREQUENCY) + KD*newDerivRight/(1/UPDATE_FREQUENCY);
     
     PropErr.AngVelLeft = newPropLeft;
     PropErr.AngVelRight = newPropRight;
