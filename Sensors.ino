@@ -28,9 +28,9 @@ float getDistance(int ir_pin)
 
   // Check if distance inside range that can be measured by sensor (10-80cm), otherwise cut value off
   if (distance_cm > 80.0)
-    return 81.0;
+    return 0.81;
   else if (distance_cm < 10.0)
-    return 9.0;
+    return 0.09;
   return (float)(distance_cm / 100.0); // return in m
 }
 
