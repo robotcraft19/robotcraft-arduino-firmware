@@ -25,9 +25,11 @@ float getDistance(int ir_pin)
   // Alternative formulas found in experiments
   //5177 / (ir_val[SAMPLE_SIZE/2] -19.54) - 1.28;
   //4213 / (ir_val[SAMPLE_SIZE/2] -41.64);
+  //rangeIR[0] = ( (364.0 * exp(-0.02714 * analog_temp0)) + (62.85 * exp(-0.004412 * analog_temp0)) ) * 0.01;
+
 
   // Check if distance inside range that can be measured by sensor (10-80cm), otherwise cut value off
-  if (distance_cm > 80.0)
+  if (distance_cm > 80.0 || distance_cm < 0.0)
     return 0.81;
   else if (distance_cm < 10.0)
     return 0.09;
